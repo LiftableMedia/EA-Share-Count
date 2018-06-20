@@ -128,7 +128,7 @@ class EA_Share_Count_Core{
 			$share_count = json_decode( $share_count, true );
 		}
 
-		return $share_count;
+		return apply_filters( 'ea_share_count_counts', $share_count, $id, $array, $force );
 	}
 
 	/**
@@ -382,6 +382,12 @@ class EA_Share_Count_Core{
 						$share_count['Facebook']['total_count'] = $share_count['Facebook']['share_count'] + $share_count['Facebook']['comment_count'];
 
 
+					}
+
+					// if there's an API error, keep the old counts instead of resetting to 0
+					elseif( $post_id = url_to_postid( $global_args['url'] ) ) {
+						$old_sc = get_post_meta( $post_id, 'ea_share_count', true );
+						if( isset( $old_sc['Facebook'] ) ) $share_count['Facebook'] = $old_sc['Facebook'];
 					}
 					break;
 

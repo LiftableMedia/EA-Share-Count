@@ -2,10 +2,10 @@
 /**
  * Plugin Name: EA Share Count
  * Plugin URI:  https://github.com/jaredatch/EA-Share-Count
- * GitHub URI: jaredatch/EA-Share-Count
+ * GitHub URI:  LiftableMedia/EA-Share-Count
  * Description: A lean plugin for quickly retrieving, caching, and displaying various social sharing counts and buttons.
  * Author:      Bill Erickson & Jared Atchison
- * Version:     1.8.0
+ * Version:     1.8.1
  *
  * EA Share Count is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

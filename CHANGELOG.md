@@ -1,6 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file, formatted via [this recommendation](http://keepachangelog.com/).
 
+## [1.8.1] = 2018-06-20
+### Added
+- Added `ea_share_count_counts` filter
+
+### Fixed
+- Keep old Facebook share counts if there is an API error
+
 ## [1.8.0] = 2017-01-03
 ### Added
 - Added `ea_share_count_display_wrap_format` filter, see #75
