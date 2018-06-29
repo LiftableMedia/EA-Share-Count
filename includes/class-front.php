@@ -133,11 +133,16 @@ class EA_Share_Count_Front {
 	 */
 	public function header_assets() {
 
+		$options = ea_share()->admin->options();
+
+		// not sure why removing all the services still sets included_services to array( '' ),
+		// so checking if ( sizeof == 0 ) doesn't work
+		if( sizeof( $options['included_services'] ) == 0 || ! $options['included_services'][0] )
+			return;
+
 		// Register assets
 		wp_register_style( 'ea-share-count', EA_SHARE_COUNT_URL . 'assets/css/share-count.css', array(), EA_SHARE_COUNT_VERSION );
 		wp_register_script( 'ea-share-count', EA_SHARE_COUNT_URL . 'assets/js/share-count.js', array( 'jquery' ), EA_SHARE_COUNT_VERSION, true );
-
-		$options = ea_share()->admin->options();
 
 		if ( !empty( $options['theme_location'] ) && !empty( $options['post_type'] ) && is_singular( $options['post_type'] ) && ! get_post_meta( get_the_ID(), 'ea_share_count_exclude', true ) ) {
 
