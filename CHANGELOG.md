@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file, formatted via [this recommendation](http://keepachangelog.com/).
 
+## [1.8.2] = 2018-06-29
+### Fixed
+- Don't enqueue assets if we aren't showing buttons
+
 ## [1.8.1] = 2018-06-20
 ### Added
 - Added `ea_share_count_counts` filter
