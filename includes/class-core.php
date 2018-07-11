@@ -358,8 +358,10 @@ class EA_Share_Count_Core{
 						'id'           => urlencode( $global_args['url'] ),
 					);
 					$token = ea_share()->admin->settings_value( 'fb_access_token' );
-					if( $token )
+					if( $token ) {
 						$query_args['access_token'] = urlencode( $token );
+						$query_args['fields'] = 'engagement';
+					}
 
 					$query = add_query_arg( $query_args, 'https://graph.facebook.com/' );
 					$results = wp_remote_get( $query );
@@ -368,18 +370,24 @@ class EA_Share_Count_Core{
 						$body = json_decode( wp_remote_retrieve_body( $results ) );
 
 						// Not sure why Facebook returns the data in different formats sometimes
-						if( isset( $body->shares ) )
+						if( isset( $body->engagement->share_count ) )
+							$share_count['Facebook']['share_count'] = intval( $body->engagement->share_count );
+						elseif( isset( $body->shares ) )
 							$share_count['Facebook']['share_count'] = intval( $body->shares );
 						elseif( isset( $body->share->share_count ) )
 							$share_count['Facebook']['share_count'] = intval( $body->share->share_count );
 
-						if( isset( $body->comments ) )
+						if( isset( $body->engagement->comment_count ) )
+							$share_count['Facebook']['comment_count'] = intval( $body->engagement->comment_count );
+						elseif( isset( $body->comments ) )
 							$share_count['Facebook']['comment_count'] = intval( $body->comments );
 						elseif( isset( $body->share->comment_count ) )
 							$share_count['Facebook']['comment_count'] = intval( $body->share->comment_count );
 
-						$share_count['Facebook']['like_count'] = $share_count['Facebook']['share_count'];
-						$share_count['Facebook']['total_count'] = $share_count['Facebook']['share_count'] + $share_count['Facebook']['comment_count'];
+						if( isset( $body->engagement->reaction_count ) )
+							$share_count['Facebook']['like_count'] = $share_count['Facebook']['reaction_count'];
+
+						$share_count['Facebook']['total_count'] = $share_count['Facebook']['share_count'] + $share_count['Facebook']['comment_count'] + $share_count['Facebook']['like_count'];
 
 
 					}
