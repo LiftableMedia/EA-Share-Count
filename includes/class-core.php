@@ -385,7 +385,7 @@ class EA_Share_Count_Core{
 							$share_count['Facebook']['comment_count'] = intval( $body->share->comment_count );
 
 						if( isset( $body->engagement->reaction_count ) )
-							$share_count['Facebook']['like_count'] = $share_count['Facebook']['reaction_count'];
+							$share_count['Facebook']['like_count'] = $body->engagement->reaction_count;
 
 						$share_count['Facebook']['total_count'] = $share_count['Facebook']['share_count'] + $share_count['Facebook']['comment_count'] + $share_count['Facebook']['like_count'];
 
